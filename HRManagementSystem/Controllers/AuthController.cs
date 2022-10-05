@@ -17,18 +17,16 @@ namespace HRManagementSystem.Controllers {
 
         public IActionResult LoginEmployee(EmployeesModel employee) {
             var emp =
-                _db.Employees.Where(e => e.Email == employee.Email).FirstOrDefault();
+                _db.Employees.FirstOrDefault(e => e.Email == employee.Email);
             if (emp != null) {
                 if (emp.Password == employee.Password) {
                     return RedirectToAction("Index", "Home");
                 }
-                else {
-                    return RedirectToAction("SignIn", "Auth");
-                }
-            }
-            else {
+
                 return RedirectToAction("SignIn", "Auth");
             }
+
+            return RedirectToAction("SignIn", "Auth");
         }
 
         public IActionResult SignUp() {
