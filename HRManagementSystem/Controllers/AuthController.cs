@@ -15,7 +15,6 @@ public class AuthController : Controller {
     public IActionResult SignIn() {
         return View(new EmployeesModel());
     }
-
     [HttpPost]
     public IActionResult LoginEmployee(EmployeesModel employee) {
         var emp =

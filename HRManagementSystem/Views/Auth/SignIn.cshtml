@@ -1,6 +1,4 @@
-﻿@model EmployeesModel
-
-@{
+﻿@{
     ViewData["Title"] = "Sign In";
 }
 <div class="container">
@@ -23,13 +21,13 @@
                                 <form class="user" id="sign_inForm">
                                     <div class="form-group">
 
-                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control form-control-user", id = "exampleInputEmail", placeholder = "Enter Email Address...", type = "text" })
-
+                                        <input type="text" class="form-control form-control-user" placeholder="Enter Email Address..." name="Email"/>
 
                                     </div>
                                     <div class="form-group">
 
-                                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control form-control-user", id = "exampleInputPassword", placeholder = "Password", type = "password" })
+
+                                        <input class="form-control form-control-user" placeholder="Password" name="Password"/>
 
                                     </div>
                                     <div class="form-group">
@@ -102,8 +100,10 @@
 
 
         form.submit(function(e) {
+            
             e.preventDefault();
-            if (validate()) {
+            console.log(form.validity())
+            if (form.isValid) {
                 const url = `@Url.Action("LoginEmployee")`;
                 const data = form.serializeJSON();
                 debugger;
@@ -115,8 +115,6 @@
                     success: function(response) {
                         if (response.success) {
                             window.location.href = "/Home/Index";
-                        } else {
-                            alert(response.message);
                         }
                     }
                 });
