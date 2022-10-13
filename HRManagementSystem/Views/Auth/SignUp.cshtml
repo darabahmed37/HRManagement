@@ -15,11 +15,13 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                         </div>
-                        <form class="user" asp-controller="Auth" asp-action="CreateEmployee" method="post">
+                        <form class="user" onsubmit="onSubmit_sign">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input asp-for="FirstName" type="text" class="form-control form-control-user" id="exampleFirstName"
                                            placeholder="First Name">
+                                    
+                               
                                 </div>
                                 <div class="col-sm-6">
                                     <input asp-for="LastName" type="text" class="form-control form-control-user" id="exampleLastName"
@@ -38,6 +40,7 @@
                                 <div class="col-sm-6">
                                     <input type="password" class="form-control form-control-user"
                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+
                                 </div>
                             </div>
                             <button class="btn btn-primary btn-user btn-block" type="submit">
@@ -57,6 +60,7 @@
                         </div>
                         <div class="text-center">
                             <a asp-controller="Auth" asp-action="SignIn">Already have an account? Login!</a>
+
                         </div>
                     </div>
                 </div>
@@ -65,3 +69,15 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        const url = @Url.Action("CreateEmployee", "Auth");
+        alert(url);
+        function onSubmit_sign() {
+            alert("ok");
+        }
+
+    </script>
+}

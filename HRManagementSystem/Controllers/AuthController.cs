@@ -1,45 +1,46 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HRManagementSystem.Database;
 using HRManagementSystem.Models;
-using HRManagementSystem.Database;
+using Microsoft.AspNetCore.Mvc;
 
-namespace HRManagementSystem.Controllers {
-    public class AuthController : Controller {
-        private readonly HRDBContext _db;
+namespace HRManagementSystem.Controllers;
 
-        public AuthController(HRDBContext db) {
-            _db = db;
-        }
+public class AuthController : Controller {
+    private readonly HRDBContext _db;
+
+    public AuthController(HRDBContext db) {
+        _db = db;
+    }
 
 
-        public IActionResult SignIn() {
-            return View(new EmployeesModel());
-        }
+    public IActionResult SignIn() {
+        return View(new EmployeesModel());
+    }
 
-        public IActionResult LoginEmployee(EmployeesModel employee) {
-            var emp =
-                _db.Employees.FirstOrDefault(e => e.Email == employee.Email);
-            if (emp != null) {
-                if (emp.Password == employee.Password) {
-                    return RedirectToAction("Index", "Home");
-                }
-
-                return RedirectToAction("SignIn", "Auth");
-            }
+    [HttpPost]
+    public IActionResult LoginEmployee(EmployeesModel employee) {
+        var emp =
+            _db.Employees.FirstOrDefault(e => e.Email == employee.Email);
+        if (emp != null) {
+            if (emp.Password == employee.Password)
+                return RedirectToAction("Index", "Home");
 
             return RedirectToAction("SignIn", "Auth");
         }
 
-        public IActionResult SignUp() {
-            return View(new EmployeesModel());
-        }
+        return RedirectToAction("SignIn", "Auth");
+    }
+
+    public IActionResult SignUp() {
+        return View(new EmployeesModel());
+    }
 
 
-        public IActionResult CreateEmployee(EmployeesModel employee) {
+    public IActionResult CreateEmployee([FromBody] EmployeesModel? employee) {
+        if (employee != null) {
             _db.Employees.Add(employee);
             _db.SaveChanges();
-
-
-            return RedirectToAction(nameof(SignIn));
         }
+
+        return RedirectToAction(nameof(SignIn));
     }
 }

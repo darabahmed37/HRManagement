@@ -20,15 +20,17 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
-                                <form class="user" asp-controller="Auth" asp-action="LoginEmployee" method="post">
+                                <form class="user" id="sign_inForm">
                                     <div class="form-group">
-                                        <input asp-for="Email" type="email" class="form-control form-control-user"
-                                               id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address...">
+
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control form-control-user", id = "exampleInputEmail", placeholder = "Enter Email Address...", type = "text" })
+
+
                                     </div>
                                     <div class="form-group">
-                                        <input asp-for="Password" type="password" class="form-control form-control-user"
-                                               id="exampleInputPassword" placeholder="Password">
+
+                                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control form-control-user", id = "exampleInputPassword", placeholder = "Password", type = "password" })
+
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -39,9 +41,9 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </button>
+                                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
+
+
                                     <hr>
                                     <a href="index.html" class="btn btn-google btn-user btn-block">
                                         <i class="fab fa-google fa-fw"></i> Login with Google
@@ -68,3 +70,57 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script>
+        let form = $("#sign_inForm");
+
+        function validate() {
+            return form.validate({
+                rules: {
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    Password: {
+                        required: true,
+                        minlength: 6
+                    }
+                },
+                messages: {
+                    Email: {
+                        required: "Please enter your email",
+                        email: "Please enter a valid email address"
+                    },
+                    Password: {
+                        required: "Please enter your password",
+                        minlength: "Your password must be at least 6 characters long"
+                    }
+                }
+            });
+        }
+
+
+        form.submit(function(e) {
+            e.preventDefault();
+            if (validate()) {
+                const url = `@Url.Action("LoginEmployee")`;
+                const data = form.serializeJSON();
+                debugger;
+                console.log(data);
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: data,
+                    success: function(response) {
+                        if (response.success) {
+                            window.location.href = "/Home/Index";
+                        } else {
+                            alert(response.message);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+}
