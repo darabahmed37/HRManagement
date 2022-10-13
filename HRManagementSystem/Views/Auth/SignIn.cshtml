@@ -100,13 +100,12 @@
 
 
         form.submit(function(e) {
-            
+            validate();
             e.preventDefault();
-            console.log(form.validity())
-            if (form.isValid) {
+            if (form.valid()) {
                 const url = `@Url.Action("LoginEmployee")`;
                 const data = form.serializeJSON();
-                debugger;
+
                 console.log(data);
                 $.ajax({
                     url: url,
