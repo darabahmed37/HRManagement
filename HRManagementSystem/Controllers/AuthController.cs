@@ -1,7 +1,9 @@
-﻿using HRManagementSystem.Database;
+﻿using System.Net;
+using HRManagementSystem.Database;
 using HRManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Http;
+using System.Web;
 namespace HRManagementSystem.Controllers;
 
 public class AuthController : Controller {
@@ -22,8 +24,9 @@ public class AuthController : Controller {
         if (emp != null) {
             if (emp.Password == employee.Password)
                 return RedirectToAction("Index", "Home");
+            throw new HttpRequestException("Invalid Password", null, statusCode:HttpStatusCode.Unauthorized);
 
-            return RedirectToAction("SignIn", "Auth");
+
         }
 
         return RedirectToAction("SignIn", "Auth");

@@ -27,7 +27,7 @@
                                     <div class="form-group">
 
 
-                                        <input class="form-control form-control-user" placeholder="Password" name="Password"/>
+                                        <input class="form-control form-control-user" placeholder="Password" type="password" name="Password"/>
 
                                     </div>
                                     <div class="form-group">
@@ -92,7 +92,7 @@
                     },
                     Password: {
                         required: "Please enter your password",
-                        minlength: "Your password must be at least 6 characters long"
+                        minlength: "Your password must be at least 6 characters long",
                     }
                 }
             });
@@ -105,17 +105,20 @@
             if (form.valid()) {
                 const url = `@Url.Action("LoginEmployee")`;
                 const data = form.serializeJSON();
-
-                console.log(data);
+            
                 $.ajax({
                     url: url,
                     type: "POST",
                     data: data,
                     success: function(response) {
-                        if (response.success) {
-                            window.location.href = "/Home/Index";
-                        }
+                        window.location.href = '@Url.Action("Index", "Home")';
+
+                    },
+                    error: (response) => {
+                    
+                        console.log(response)
                     }
+
                 });
             }
         });

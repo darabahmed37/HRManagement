@@ -1,5 +1,5 @@
 ﻿.error {
-    font-size: 1rem;
+    font-size: .8rem;
     width: 100%;
-    color: var(--red);
+    color: var(--danger);
 }
