@@ -71,6 +71,7 @@
 
 @section Scripts {
     <script>
+        $("body").addClass("bg-gradient-primary");
         let form = $("#sign_inForm");
 
         function validate() {
@@ -116,8 +117,8 @@
                     },
                     error: (response) => {
                     
-                       if (response.status === 401) {
-                           form.validate().showErrors({
+                        if (response.status === 401) {
+                            form.validate().showErrors({
                                 Password: "Invalid Password"
                             });
                         } else if (response.status === 404) {

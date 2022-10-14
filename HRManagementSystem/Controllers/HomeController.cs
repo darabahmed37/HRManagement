@@ -2,7 +2,7 @@
 
 namespace HRManagementSystem.Controllers {
     public class HomeController : Controller {
-        public IActionResult Index() {
+        public IActionResult NewEmployee() {
             return View();
         }
     }

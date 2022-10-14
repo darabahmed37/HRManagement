@@ -1,0 +1,88 @@
+﻿@section Style {
+
+    <style>
+        .body-background {
+            background-color: #f5f5f5;
+        }
+
+        .form-item {
+            width: 20em;
+        }
+
+        #employeeForm {
+            flex-wrap: wrap;
+            gap: 2em;
+        }
+    </style>
+}
+
+
+    <div class="body-background">
+        <div>
+            <h3 class="text-dark">
+                Employee Page
+            </h3>
+            <div class="bg-white p-5">
+                <h4>Employee Information</h4>
+                <div class="row " id="employeeForm">
+                    <div class="form-item">
+                        @Html.Label("Employee Code")
+                        <input class="form-control" placeholder="Employee Code" name="Employee Code" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Employee Name")
+                        <input class="form-control" placeholder="Employee Name" name="Employee Name" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Appointed By")
+                        <input class="form-control" placeholder="Appointed By" name="Appointed By" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Join Date")
+                        <input class="form-control" name="Join Date" type="date" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Qualification")
+                        <select class="form-control">
+                            <option>Graduation</option>
+                            <option>Intermediate</option>
+                            <option>Matriculation</option>
+
+                        </select>
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Gender")
+                        <select class="form-control">
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Others</option>
+
+                        </select>
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("DOB Date")
+                        <input class="form-control" name="DOB Date" type="date" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Religion")
+                        <select class="form-control">
+                            <option>Islam</option>
+                            <option>Christianity</option>
+                            <option>Others</option>
+
+                        </select>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>

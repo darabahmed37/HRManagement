@@ -19,15 +19,14 @@
     <!-- Custom styles for this template-->
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="~/css/mystyles.css" rel="stylesheet" />
-
+    @await RenderSectionAsync("Style", false)
 </head>
-<body class="bg-gradient-primary">
+<body>
 
 
-    @RenderBody();
+    @RenderBody()
     <!-- Bootstrap core JavaScript-->
-    <script type="text/javascript" src="~/vendor/jquery/jquery.min.js">
-    </script>
+    <script type="text/javascript" src="~/vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="~/vendor/jquery/jquery.serializejson.js"></script>
     <script type="text/javascript" src="~/vendor/jquery/jquery.validate.min.js"></script>
