@@ -117,10 +117,14 @@
                     error: (response) => {
                     
                        if (response.status === 401) {
-                            form.validate().showErrors({
+                           form.validate().showErrors({
                                 Password: "Invalid Password"
                             });
-                       }
+                        } else if (response.status === 404) {
+                            form.validate().showErrors({
+                                Email: "Invalid Email"
+                            });
+                        }
                     }
 
                 });

@@ -15,13 +15,13 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                         </div>
-                        <form class="user" onsubmit="onSubmit_sign">
+                        <form class="user" id="signUpForm">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input asp-for="FirstName" type="text" class="form-control form-control-user" id="exampleFirstName"
                                            placeholder="First Name">
-                                    
-                               
+
+
                                 </div>
                                 <div class="col-sm-6">
                                     <input asp-for="LastName" type="text" class="form-control form-control-user" id="exampleLastName"
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="password" class="form-control form-control-user"
-                                           id="exampleRepeatPassword" placeholder="Repeat Password">
+                                           id="exampleRepeatPassword" placeholder="Repeat Password" name="RepeatPassword">
 
                                 </div>
                             </div>
@@ -71,13 +71,93 @@
 </div>
 
 @section Scripts {
-    <script type="text/javascript">
+    <script>
 
-        const url = @Url.Action("CreateEmployee", "Auth");
-        alert(url);
-        function onSubmit_sign() {
-            alert("ok");
+        const form = $('#signUpForm');
+
+
+        function validate() {
+            form.validate({
+                rules: {
+                    FirstName: {
+                        required: true,
+                        minlength: 2
+                    },
+                    LastName: {
+                        required: true,
+                        minlength: 2
+                    },
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    Password: {
+                        required: true,
+                        minlength: 6,
+                    },
+                    RepeatPassword: {
+                        required: true,
+                        minlength: 6,
+                        equalTo: "#exampleInputPassword"
+                    }
+                },
+                messages: {
+                    FirstName: {
+                        required: "Please enter your first name",
+                        minlength: "Your first name must be at least 2 characters long"
+                    },
+                    LastName: {
+                        required: "Please enter your last name",
+                        minlength: "Your last name must be at least 2 characters long"
+                    },
+                    Email: {
+                        required: "Please enter your email",
+                        email: "Please enter a valid email"
+                    },
+                    Password: {
+                        required: "Please enter your password",
+                        minlength: "Your password must be at least 6 characters long"
+                    },
+                    RepeatPassword: {
+                        required: "Please enter your password",
+                        minlength: "Your password must be at least 6 characters long",
+                        equalTo: "Please enter the same password as above"
+                    }
+                },
+
+            });
+
+
         }
+
+        form.submit(e => {
+            validate()
+            e.preventDefault();
+            if (form.valid()) {
+                const url = '@Url.Action("CreateEmployee", "Auth")';
+                const data = form.serializeJSON();
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: data,
+                    success: function (response) {
+                        if (response.success) {
+                            setTimeout(() => {
+                                window.location.href = '@Url.Action("SignIn", "Auth")';
+                            },
+                                200);
+                        }
+                    },
+                    error: response => {
+                        form.validate().showErrors({
+                            Email: "Email already exists"
+
+                        });
+                    }
+                });
+
+            }
+        });
 
     </script>
 }

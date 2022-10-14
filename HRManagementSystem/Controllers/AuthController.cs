@@ -17,6 +17,7 @@ public class AuthController : Controller {
     public IActionResult SignIn() {
         return View(new EmployeesModel());
     }
+
     [HttpPost]
     public IActionResult LoginEmployee(EmployeesModel employee) {
         var emp =
@@ -29,20 +30,23 @@ public class AuthController : Controller {
 
         }
 
-        return RedirectToAction("SignIn", "Auth");
+        return StatusCode((int)HttpStatusCode.NotFound, "Invalid Email");
     }
 
     public IActionResult SignUp() {
         return View(new EmployeesModel());
     }
 
-
-    public IActionResult CreateEmployee([FromBody] EmployeesModel? employee) {
-        if (employee != null) {
+    [HttpPost]
+    public IActionResult CreateEmployee(EmployeesModel employee) {
+        var emp = _db.Employees.FirstOrDefault(e => e.Email == employee.Email);
+        if (emp == null) {
             _db.Employees.Add(employee);
             _db.SaveChanges();
+            return RedirectToAction("SignIn");
         }
 
-        return RedirectToAction(nameof(SignIn));
+        return StatusCode((int)HttpStatusCode.Conflict, "Email already exists");
+
     }
 }
