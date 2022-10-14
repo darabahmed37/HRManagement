@@ -116,7 +116,11 @@
                     },
                     error: (response) => {
                     
-                        console.log(response)
+                       if (response.status === 401) {
+                            form.validate().showErrors({
+                                Password: "Invalid Password"
+                            });
+                       }
                     }
 
                 });

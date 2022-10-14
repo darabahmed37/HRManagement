@@ -24,7 +24,7 @@ public class AuthController : Controller {
         if (emp != null) {
             if (emp.Password == employee.Password)
                 return RedirectToAction("Index", "Home");
-            throw new HttpRequestException("Invalid Password", null, statusCode:HttpStatusCode.Unauthorized);
+            return StatusCode((int)HttpStatusCode.Unauthorized, "Invalid Password");
 
 
         }
