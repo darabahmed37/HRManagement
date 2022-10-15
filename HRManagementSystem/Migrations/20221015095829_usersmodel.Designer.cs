@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRManagementSystem.Migrations
 {
     [DbContext(typeof(HRDBContext))]
-    [Migration("20221001024310_firstmigration")]
-    partial class firstmigration
+    [Migration("20221015095829_usersmodel")]
+    partial class usersmodel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace HRManagementSystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HRManagementSystem.Models.EmployeesModel", b =>
+            modelBuilder.Entity("HRManagementSystem.Models.UsersModel", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,8 @@ namespace HRManagementSystem.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -57,7 +58,7 @@ namespace HRManagementSystem.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

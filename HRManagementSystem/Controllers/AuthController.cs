@@ -15,16 +15,16 @@ public class AuthController : Controller {
 
 
     public IActionResult SignIn() {
-        return View(new EmployeesModel());
+        return View(new UsersModel());
     }
 
     [HttpPost]
-    public IActionResult LoginEmployee(EmployeesModel employee) {
+    public IActionResult LoginEmployee(UsersModel employee) {
         var emp =
-            _db.Employees.FirstOrDefault(e => e.Email == employee.Email);
+            _db.Users.FirstOrDefault(e => e.Email == employee.Email);
         if (emp != null) {
             if (emp.Password == employee.Password)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("NewEmployee", "Home");
             return StatusCode((int)HttpStatusCode.Unauthorized, "Invalid Password");
 
 
@@ -34,14 +34,14 @@ public class AuthController : Controller {
     }
 
     public IActionResult SignUp() {
-        return View(new EmployeesModel());
+        return View(new UsersModel());
     }
 
     [HttpPost]
-    public IActionResult CreateEmployee(EmployeesModel employee) {
-        var emp = _db.Employees.FirstOrDefault(e => e.Email == employee.Email);
+    public IActionResult CreateEmployee(UsersModel employee) {
+        var emp = _db.Users.FirstOrDefault(e => e.Email == employee.Email);
         if (emp == null) {
-            _db.Employees.Add(employee);
+            _db.Users.Add(employee);
             _db.SaveChanges();
             return RedirectToAction("SignIn");
         }
@@ -49,4 +49,6 @@ public class AuthController : Controller {
         return StatusCode((int)HttpStatusCode.Conflict, "Email already exists");
 
     }
+
+
 }

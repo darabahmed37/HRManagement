@@ -1,4 +1,4 @@
-﻿@model EmployeesModel
+﻿@model UsersModel
 @{
     ViewData["Title"] = "Sign Up";
 }
@@ -142,10 +142,8 @@
                     data: data,
                     success: function (response) {
                         if (response.success) {
-                            setTimeout(() => {
                                 window.location.href = '@Url.Action("SignIn", "Auth")';
-                            },
-                                200);
+                        
                         }
                     },
                     error: response => {

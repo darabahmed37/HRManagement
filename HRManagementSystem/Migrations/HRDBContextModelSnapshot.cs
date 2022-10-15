@@ -21,7 +21,7 @@ namespace HRManagementSystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HRManagementSystem.Models.EmployeesModel", b =>
+            modelBuilder.Entity("HRManagementSystem.Models.UsersModel", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace HRManagementSystem.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

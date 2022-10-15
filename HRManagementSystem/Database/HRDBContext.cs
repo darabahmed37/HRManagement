@@ -6,6 +6,6 @@ namespace HRManagementSystem.Database {
         public HRDBContext(DbContextOptions<HRDBContext> options) : base(options) {
         }
 
-        public DbSet<EmployeesModel> Employees { get; set; }
+        public DbSet<UsersModel> Users { get; set; }
     }
 }
