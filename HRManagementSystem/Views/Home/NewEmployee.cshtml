@@ -23,7 +23,7 @@
 
 
     <div class="body-background">
-        <form>
+        <form id="add-employee">
             <h3 class="text-dark p-5">
                 Employee Page
             </h3>
@@ -140,7 +140,7 @@
             </div>
             <hr />
             <div class="px-5 pb-5">
-                <button class="btn btn-primary">Add New</button>
+                <button class="btn btn-primary" type="submit">Add New</button>
                 <button class="btn btn-primary">Update</button>
                 <button class="btn btn-primary">Delete</button>
                 <button class="btn btn-primary">View</button>
@@ -149,3 +149,122 @@
 
 
     </div>
+    @section Scripts{
+    <script>
+        let form = $("#add-employee")
+ 
+
+        function validate() {
+            form.validate({
+
+                rules: {
+                    "Employee Code": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Employee Name": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Appointed By": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Country": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "City": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Land Line": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Mobile": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Address": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "DOB Date": {
+                        date: true,
+                        required: true,
+                    },
+                    "Join Date": {
+                        date: true,
+                        required: true,
+                    }
+                }
+                ,
+                messages: {
+                    "Employee Code": {
+                        required: "Employee Code is required",
+                        minlength: "Employee Code must be at least 3 characters",
+                        maxlength: "Employee Code must be at most 10 characters"
+                    },
+                    "Employee Name": {
+                        required: "Employee Name is required",
+                        minlength: "Employee Name must be at least 3 characters",
+                        maxlength: "Employee Name must be at most 10 characters"
+                    },
+                    "Appointed By": {
+                        required: "Appointed By is required",
+                        minlength: "Appointed By must be at least 3 characters",
+                        maxlength: "Appointed By must be at most 10 characters"
+                    },
+                    "Country": {
+                        required: "Country is required",
+                        minlength: "Country must be at least 3 characters",
+                        maxlength: "Country must be at most 10 characters"
+                    },
+                    "City": {
+                        required: "City is required",
+                        minlength: "City must be at least 3 characters",
+                        maxlength: "City must be at most 10 characters"
+                    },
+                    "Land Line": {
+                        required: "Land Line is required",
+                        minlength: "Land Line must be at least 3 characters",
+                        maxlength: "Land Line must be at most 10 characters"
+                    },
+                    "Mobile": {
+                        required: "Mobile is required",
+                        minlength: "Mobile must be at least 3 characters",
+                        maxlength: "Mobile must be at most 10 characters"
+                    },
+                    "Address": {
+                        required: "Address is required",
+                        minlength: "Address must be at least 3 characters",
+                        maxlength: "Address must be at most 10 characters"
+                    }
+                }
+            })
+
+
+        }
+        $(document).ready(function () {
+            validate();
+            form.submit(function (e) {
+                console.log(form)
+                e.preventDefault();
+
+                form.valid();
+
+            })
+        })
+
+
+    </script>
+}

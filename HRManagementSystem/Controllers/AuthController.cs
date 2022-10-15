@@ -20,11 +20,13 @@ public class AuthController : Controller {
 
     [HttpPost]
     public IActionResult LoginEmployee(UsersModel employee) {
+
         var emp =
             _db.Users.FirstOrDefault(e => e.Email == employee.Email);
         if (emp != null) {
-            if (emp.Password == employee.Password)
+            if (emp.Password == employee.Password) {
                 return RedirectToAction("NewEmployee", "Home");
+            }
             return StatusCode((int)HttpStatusCode.Unauthorized, "Invalid Password");
 
 
