@@ -48,7 +48,7 @@ public class AuthController : Controller {
         if (emp == null) {
             _db.Users.Add(employee);
             _db.SaveChanges();
-            return RedirectToAction("SignIn");
+            return StatusCode((int)HttpStatusCode.OK, "Success");
         }
 
         return StatusCode((int)HttpStatusCode.Conflict, "Email already exists");
