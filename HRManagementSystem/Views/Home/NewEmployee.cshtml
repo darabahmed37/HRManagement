@@ -21,7 +21,7 @@
 
 
 <div class="body-background">
-    <form id="add-employee">
+    <form id="add-employee" aria-disabled="True">
         <h3 class="text-dark p-5">
             Employee Page
         </h3>
@@ -31,7 +31,7 @@
             <div class="row mt-5 pl-4 employeeForm">
                 <div class="form-item">
                     @Html.Label("Employee Code")
-                    <input class="form-control" placeholder="Employee Code" name="Employee Code"/>
+                    <input class="form-control" placeholder="Employee Code" name="Employee Code" id="emp-code"/>
 
                 </div>
                 <div class="form-item">
@@ -154,15 +154,14 @@
     <script>
         let form = $("#add-employee");
         let input = form.find("input");
-        console.log(input);
-
+        let view = $("#add-employee :not(#emp-code, button)").prop("disabled", true);
         function validate() {
             form.validate({
                 errorClass: "is-invalid text-danger",
                 rules: {
                     "Employee Code": {
                         required: true,
-                        minlength: 3,
+                        minlength: 1,
                         maxlength: 10
                     },
                     "Employee Name": {
