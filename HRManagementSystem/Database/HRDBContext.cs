@@ -7,5 +7,6 @@ namespace HRManagementSystem.Database {
         }
 
         public DbSet<UsersModel> Users { get; set; }
+        public DbSet<EmployeeModel> Employees { get; set; }
     }
 }

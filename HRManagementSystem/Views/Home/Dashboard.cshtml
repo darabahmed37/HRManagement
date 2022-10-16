@@ -1,0 +1,304 @@
+﻿@{
+    ViewData["Title"] = "Create Employee";
+}
+@inject IHttpContextAccessor ContextAccessor
+
+@section Style {
+
+    <style>
+        .body-background {
+            background-color: #f5f5f5;
+            height: 100%
+        }
+
+        .form-item {
+            width: 20em;
+        }
+
+        .employeeForm {
+            flex-wrap: wrap;
+            gap: 2em;
+        }
+    </style>
+}
+
+
+    <div class="body-background">
+        <form id="add-employee" aria-disabled="True">
+            <h3 class="text-dark p-5">
+                Employee Page
+            </h3>
+            <div class="bg-white p-5 shadow p-3 mb-4 bg-white rounded mx-5">
+                <h4>Employee Information</h4>
+                <hr />
+                <div class="row mt-5 pl-4 employeeForm">
+                    <div class="form-item">
+                        @Html.Label("Employee Code")
+                        <input class="form-control" placeholder="Employee Code" name="Employee Code" id="emp-code" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Employee Name")
+                        <input class="form-control" placeholder="Employee Name" name="Employee Name" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Appointed By")
+                        <input class="form-control" placeholder="Appointed By" name="Appointed By" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Join Date")
+                        <input class="form-control" name="Join Date" type="date" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Qualification")
+                        <select class="form-control" name="Qualification">
+                            <option value="Graduation">Graduation</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Matriculation">Matriculation</option>
+
+                        </select>
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Gender")
+                        <select class="form-control" name="Gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Others">Others</option>
+
+                        </select>
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("DOB Date")
+                        <input class="form-control" name="DOB Date" type="date" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Religion")
+                        <select class="form-control" name="Religion">
+                            <option value="Islam">Islam</option>
+                            <option value="Christianity">Christianity</option>
+                            <option value="Others">Others</option>
+
+                        </select>
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Marital Status")
+                        <select class="form-control" name="Marital Status">
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Windowed">Windowed</option>
+                            <option value="Separated">Separated</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-item custom-file">
+                        @Html.Label("Employee Picture")
+                        <input type="file" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="bg-white p-5 shadow p-3 mb-2 bg-white rounded mx-5">
+                <h4>Contact Information</h4>
+                <hr />
+                <div class="row my-5 pl-4 employeeForm">
+                    <div class="form-item">
+                        @Html.Label("Country")
+                        <input class="form-control" placeholder="Country" name="Country" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("City")
+                        <input class="form-control" placeholder="City" name="City" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Land Line")
+                        <input class="form-control" placeholder="Land Line" name="Land Line" />
+
+                    </div>
+                    <div class="form-item">
+                        @Html.Label("Mobile")
+                        <input class="form-control" type="tel" placeholder="Mobile" name="Mobile" />
+
+                    </div>
+
+                    <div class="form-item">
+                        @Html.Label("Address")
+                        <textarea class="form-control" rows="2" cols="6" placeholder="Address" name="Address"></textarea>
+
+                    </div>
+
+                </div>
+            </div>
+            <hr />
+            <div class="px-5 pb-5">
+                <button class="btn btn-primary" id="newEmp-btn">Add New</button>
+                <button class="btn btn-primary" id="updateEmp-btn">Update</button>
+                <button class="btn btn-primary" type="submit" id="deleteEmp-btn">Delete</button>
+                <button class="btn btn-primary" id="viewEmp-btn">View</button>
+            </div>
+        </form>
+
+        <h1>
+            @ContextAccessor.HttpContext?.Session.GetInt32("ID")
+        </h1>
+    </div>
+
+    @section Scripts{
+    <script>
+        let form = $("#add-employee");
+        let addBtn = $("#newEmp-btn");
+        let updateBtn = $("#updateEmp-btn");
+        let deleteBtn = $("#deleteEmp-btn");
+        let viewBtn = $("#viewEmp-btn");
+        let activeForm = false;
+
+        function toggleForm(mode) {
+            const input = form.find("input");
+            const view = $("#add-employee :not(#emp-code, button)").prop("disabled", mode);
+        }
+
+
+        function validate() {
+            form.validate({
+                errorClass: "is-invalid text-danger",
+                rules: {
+                    "Employee Code": {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 10
+                    },
+                    "Employee Name": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Appointed By": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Country": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "City": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Land Line": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Mobile": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "Address": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    "DOB Date": {
+                        date: true,
+                        required: true,
+                    },
+                    "Join Date": {
+                        date: true,
+                        required: true,
+                    }
+                },
+                messages: {
+                    "Employee Code": {
+                        required: "Employee Code is required",
+                        minlength: "Employee Code must be at least 3 characters",
+                        maxlength: "Employee Code must be at most 10 characters"
+                    },
+                    "Employee Name": {
+                        required: "Employee Name is required",
+                        minlength: "Employee Name must be at least 3 characters",
+                        maxlength: "Employee Name must be at most 10 characters"
+                    },
+                    "Appointed By": {
+                        required: "Appointed By is required",
+                        minlength: "Appointed By must be at least 3 characters",
+                        maxlength: "Appointed By must be at most 10 characters"
+                    },
+                    "Country": {
+                        required: "Country is required",
+                        minlength: "Country must be at least 3 characters",
+                        maxlength: "Country must be at most 10 characters"
+                    },
+                    "City": {
+                        required: "City is required",
+                        minlength: "City must be at least 3 characters",
+                        maxlength: "City must be at most 10 characters"
+                    },
+                    "Land Line": {
+                        required: "Land Line is required",
+                        minlength: "Land Line must be at least 3 characters",
+                        maxlength: "Land Line must be at most 10 characters"
+                    },
+                    "Mobile": {
+                        required: "Mobile is required",
+                        minlength: "Mobile must be at least 3 characters",
+                        maxlength: "Mobile must be at most 10 characters"
+                    },
+                    "Address": {
+                        required: "Address is required",
+                        minlength: "Address must be at least 3 characters",
+                        maxlength: "Address must be at most 10 characters"
+                    }
+                }
+            });
+
+
+        }
+
+        function returnSelectToJson() {
+            const select = $("#add-employee select");
+            const selectedOptions = $("#add-employee select option:selected");
+            const output = {};
+            const keys = Object.keys(select);
+            keys.splice(keys.length - 2);
+            keys.forEach(key => {
+                output[select[key]["name"]] = selectedOptions[key].value;
+            });
+            return output;
+        }
+
+        $(document).ready(function () {
+            validate();
+            form.submit(function (e) {
+
+                let data = form.serializeJSON();
+                data = { ...data, ...returnSelectToJson() };
+                e.preventDefault();
+                returnSelectToJson();
+                form.valid();
+
+            });
+
+            viewBtn.click(() => {
+                alert("HI");
+                activeForm = !activeForm;
+                toggleForm(activeForm);
+            });
+        });
+
+
+    </script>
+}

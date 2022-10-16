@@ -27,14 +27,12 @@ public class AuthController : Controller {
     [HttpPost]
     public IActionResult LoginEmployee(UsersModel userParam) {
 
-        UsersModel? user = _userRepository.GetFirstOrDefault(u => u.Email == userParam.Email && u.Password == userParam.Password);
+        UsersModel? user = _userRepository.GetFirstOrDefault(u => u.Email == userParam.Email);
         if (user != null) {
+            if (userParam.Password != user.Password)
+                return StatusCode((int)HttpStatusCode.Unauthorized, "Invalid Password");
             _contextAccessor.HttpContext?.Session.SetInt32("ID", user.ID);
             return StatusCode((int)HttpStatusCode.OK, "Success");
-
-            return StatusCode((int)HttpStatusCode.Unauthorized, "Invalid Password");
-
-
         }
 
         return StatusCode((int)HttpStatusCode.NotFound, "Invalid Email");
@@ -48,7 +46,7 @@ public class AuthController : Controller {
     public IActionResult CreateEmployee(UsersModel usersModel) {
 
         UsersModel? user = _userRepository.GetFirstOrDefault(u => usersModel.Email == u.Email);
-        if (user== null) {
+        if (user == null) {
             _userRepository.Add(usersModel);
             _userRepository.Save();
             return StatusCode((int)HttpStatusCode.OK, "Success");

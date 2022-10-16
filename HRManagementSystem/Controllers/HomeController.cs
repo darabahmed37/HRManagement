@@ -2,8 +2,10 @@
 
 namespace HRManagementSystem.Controllers {
     public class HomeController : Controller {
-        public IActionResult NewEmployee() {
+        public IActionResult Dashboard() {
             return View();
         }
     }
+
+    
 }
