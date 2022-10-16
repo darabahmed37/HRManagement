@@ -8,9 +8,11 @@ namespace HRManagementSystem.Controllers;
 
 public class AuthController : Controller {
     private readonly HRDBContext _db;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public AuthController(HRDBContext db) {
+    public AuthController(HRDBContext db,IHttpContextAccessor accessor) {
         _db = db;
+        _contextAccessor = accessor;
     }
 
 
@@ -25,7 +27,8 @@ public class AuthController : Controller {
             _db.Users.FirstOrDefault(e => e.Email == employee.Email);
         if (emp != null) {
             if (emp.Password == employee.Password) {
-                return RedirectToAction("NewEmployee", "Home");
+                _contextAccessor.HttpContext?.Session.SetInt32("ID", emp.ID);
+                return StatusCode((int)HttpStatusCode.OK, "Success");
             }
             return StatusCode((int)HttpStatusCode.Unauthorized, "Invalid Password");
 

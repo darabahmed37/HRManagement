@@ -131,7 +131,7 @@
         }
 
         form.submit(e => {
-            validate()
+            validate();
             e.preventDefault();
             if (form.valid()) {
                 const url = '@Url.Action("CreateEmployee", "Auth")';
@@ -141,10 +141,10 @@
                     type: 'POST',
                     data: data,
                     success: function (response) {
-                        if (response.success) {
+                   
                                 window.location.href = '@Url.Action("SignIn", "Auth")';
                         
-                        }
+                        
                     },
                     error: response => {
                         form.validate().showErrors({
