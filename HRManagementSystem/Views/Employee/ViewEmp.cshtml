@@ -148,9 +148,6 @@
             </div>
         </form>
 
-        <h1>
-            @ContextAccessor.HttpContext?.Session.GetInt32("ID")
-        </h1>
     </div>
 
     @section Scripts{
@@ -160,13 +157,17 @@
         let updateBtn = $("#updateEmp-btn");
         let deleteBtn = $("#deleteEmp-btn");
         let viewBtn = $("#viewEmp-btn");
-        let activeForm = false;
+
 
         function toggleForm(mode) {
             const input = form.find("input");
             const view = $("#add-employee :not(#emp-code, button)").prop("disabled", mode);
         }
+  
 
+        
+
+        
 
         function validate() {
             form.validate({
@@ -280,23 +281,54 @@
             return output;
         }
 
+        function addEmployeeSubmit(e) {
+
+            let data = form.serializeJSON();
+            data = { ...data, ...returnSelectToJson() };
+            e.preventDefault();
+            form.valid();
+            $.ajax({
+                url: `@Url.Action("AddEmployee")`,
+                type: "POST",
+                data: data,
+                success: function (result) {
+                    if (result) {
+                        alert("Employee Added Successfully");
+                    } else {
+                        alert("Employee Addition Failed");
+                    }
+                }
+            });
+        }
+
+
+
+        function updateEmployeeSubmit(e) {
+            let data = form.serializeJSON();
+            data = { ...data, ...returnSelectToJson() };
+            e.preventDefault();
+            form.valid();
+            $.ajax({
+                url: `@Url.Action("UpdateEmployee")`,
+                type: "POST",
+                data: data,
+                success: function (result) {
+                    if (result) {
+                        alert("Employee Updated Successfully");
+                    } else {
+                        alert("Employee Update Failed");
+                    }
+                }
+            });
+        }
         $(document).ready(function () {
             validate();
-            form.submit(function (e) {
 
-                let data = form.serializeJSON();
-                data = { ...data, ...returnSelectToJson() };
-                e.preventDefault();
-                returnSelectToJson();
-                form.valid();
-
+            viewBtn.click(function () {
+                toggleForm(true);
             });
 
-            viewBtn.click(() => {
-                alert("HI");
-                activeForm = !activeForm;
-                toggleForm(activeForm);
-            });
+
         });
 
 
