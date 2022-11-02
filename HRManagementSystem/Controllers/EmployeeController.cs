@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRManagementSystem.Controllers;
 
-[Route("Dashboard/Employee")]
+[Route("Dashboard")]
 public class EmployeeController : Controller {
     private readonly IRepository<EmployeeModel> _emp;
 
@@ -14,13 +14,12 @@ public class EmployeeController : Controller {
     public EmployeeController(HRDBContext db) {
         _emp = new Repository<EmployeeModel>(db);
     }
-
-    public IActionResult ViewEmp() {
+    [Route("index")]
+    public IActionResult Index() {
         return View();
     }
     [HttpGet]
-    [Route("/{id?}")]
-    public IActionResult GetEmployeeById(int id) {
+    public IActionResult GetEmployeeById([FromBody]int id) {
         var emp = _emp.GetFirstOrDefault(e => e.Code == id);
         return Json(emp);
     }
@@ -37,7 +36,6 @@ public class EmployeeController : Controller {
         return StatusCode(400, ModelState);
     }
 
-    [Route("/{id?}")]
     [HttpPatch]
     public IActionResult UpdateEmployee(int id, EmployeeModel model) {
         var emp = _emp.GetFirstOrDefault(x => x.Code == id);

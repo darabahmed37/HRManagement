@@ -163,11 +163,7 @@
             const input = form.find("input");
             const view = $("#add-employee :not(#emp-code, button)").prop("disabled", mode);
         }
-  
 
-        
-
-        
 
         function validate() {
             form.validate({
@@ -286,21 +282,22 @@
             let data = form.serializeJSON();
             data = { ...data, ...returnSelectToJson() };
             e.preventDefault();
-            form.valid();
-            $.ajax({
-                url: `@Url.Action("AddEmployee")`,
-                type: "POST",
-                data: data,
-                success: function (result) {
-                    if (result) {
-                        alert("Employee Added Successfully");
-                    } else {
-                        alert("Employee Addition Failed");
+            if (form.valid()) {
+                $.ajax({
+                    url: `@Url.Action("AddEmployee")`,
+                    type: "POST",
+                    data: data,
+                    success: function (result) {
+                        if (result) {
+                            alert("Employee Added Successfully");
+                        } else {
+                            alert("Employee Addition Failed");
+                        }
                     }
-                }
-            });
-        }
+                });
+            }
 
+        }
 
 
         function updateEmployeeSubmit(e) {
@@ -320,17 +317,38 @@
                     }
                 }
             });
+
         }
+
+        function getEmployeeById(e) {
+            e.preventDefault();
+            const id = $("#emp-code").val()
+
+            if (form.valid()) {
+                $.ajax({
+                    url: `@Url.Action("GetEmployeeById")` + id,
+                    type: "GET",
+                    data: {
+                        id
+                    },
+                    success: function (response) {
+                        debugger
+                        console.log(response);
+                    }
+
+                })
+            }
+        }
+
+
         $(document).ready(function () {
             validate();
-
-            viewBtn.click(function () {
-                toggleForm(true);
-            });
+            toggleForm(true);
+            viewBtn.click(getEmployeeById)
 
 
         });
 
 
     </script>
-}
+    }

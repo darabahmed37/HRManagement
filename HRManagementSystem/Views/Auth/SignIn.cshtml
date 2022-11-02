@@ -107,13 +107,13 @@
             if (form.valid()) {
                 const url = `@Url.Action("LoginEmployee")`;
                 const data = form.serializeJSON();
-           
+          
                 $.ajax({
                     url: url,
                     type: "POST",
                     data: data,
                     success: function(response) {
-                        window.location.href = '@Url.Action("ViewEmp", "Employee")';
+                        window.location.href = '@Url.Action("Index", "Employee")';
 
                     },
                     error: (response) => {
