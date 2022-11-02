@@ -19,12 +19,15 @@ public class EmployeeController : Controller {
         return View();
     }
     [HttpGet]
-    public IActionResult GetEmployeeById([FromBody]int id) {
+    public IActionResult GetEmployeeById([FromQuery]int id) {
         var emp = _emp.GetFirstOrDefault(e => e.Code == id);
-        return Json(emp);
+        if (emp == null) {
+            return NotFound();
+        }
+        return Ok(emp);
     }
     [HttpPost]
-    public IActionResult AddEmployee(EmployeeModel employee) {
+    public IActionResult AddEmployee([FromBody]EmployeeModel employee) {
         var findEmp = _emp.GetFirstOrDefault(e => e.Code == employee.Code);
         if (findEmp == null) {
             _emp.Add(employee);
