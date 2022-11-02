@@ -138,7 +138,7 @@
             </div>
         </div>
         <hr/>
-        <div class="px-5 pb-5">
+        <div class="px-5 pb-5" id="button-group">
             <button class="btn btn-primary" id="newEmp-btn">Add New</button>
             <button class="btn btn-primary" id="updateEmp-btn">Update</button>
             <button class="btn btn-primary" type="submit" id="deleteEmp-btn">Delete</button>
@@ -350,14 +350,23 @@
             e.preventDefault();
             toggleForm(false);
             $("#emp-code").prop("disabled", true);
+            $("#button-group").empty();
+
+
+            const save = `<button class="btn btn-primary" id="saveEmp">Save</button>`;
+            const cancel = `<button class="btn btn-primary" style='margin-left:1em' id="cancelEmp">Cancel</button>`;
+            $("#button-group").append(save, cancel);
+
 
         }
+
 
         $(document).ready(function() {
             validate();
             toggleForm(true);
             viewBtn.click(getEmployeeById);
             addBtn.click(addEmployee);
+
 
         });
 
