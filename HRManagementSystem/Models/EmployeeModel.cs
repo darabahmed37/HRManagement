@@ -9,7 +9,6 @@ namespace HRManagementSystem.Models {
 
         public string Name { get; set; } = "";
         public string AppointedBy { get; set; } = "";
-        public string EmployeeCode { get; set; } = "";
         public string Country { get; set; } = "";
         public string City { get; set; } = "";
         public string LandLine { get; set; } = "";

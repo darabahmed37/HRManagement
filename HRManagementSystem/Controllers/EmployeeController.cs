@@ -14,29 +14,28 @@ public class EmployeeController : Controller {
     public EmployeeController(HRDBContext db) {
         _emp = new Repository<EmployeeModel>(db);
     }
+
     [Route("index")]
     public IActionResult Index() {
         return View();
     }
+
     [HttpGet]
-    public IActionResult GetEmployeeById([FromQuery]int id) {
+    public IActionResult GetEmployeeById([FromQuery] int id) {
         var emp = _emp.GetFirstOrDefault(e => e.Code == id);
-        if (emp == null) {
-            return NotFound();
-        }
+        if (emp == null) return NotFound();
         return Ok(emp);
     }
+
     [HttpPost]
-    public IActionResult AddEmployee([FromBody]EmployeeModel employee) {
-        var findEmp = _emp.GetFirstOrDefault(e => e.Code == employee.Code);
-        if (findEmp == null) {
+    [Route("Add")]
+    public IActionResult AddEmployee([FromForm] EmployeeModel? employee) {
+        if (employee != null) {
             _emp.Add(employee);
             _emp.Save();
-            return StatusCode(201, "Employee Added Successfully");
-
+            return Ok("Employee Added Successfully");
         }
-        ModelState.AddModelError("Email", "Email already exists");
-        return StatusCode(400, ModelState);
+        return BadRequest();
     }
 
     [HttpPatch]
@@ -46,6 +45,7 @@ public class EmployeeController : Controller {
             ModelState.AddModelError("ID", "No Employee Exists with this ID");
             return BadRequest(ModelState);
         }
+
         _emp.Update(model);
         _emp.Save();
         return Json(_emp.GetFirstOrDefault(x => x.Code == id));
