@@ -29,7 +29,7 @@ public class EmployeeController : Controller {
 
     [HttpPost]
     [Route("Add")]
-    public IActionResult AddEmployee([FromForm] EmployeeModel? employee) {
+    public IActionResult AddEmployee([FromBody] EmployeeModel? employee) {
         if (employee != null) {
             _emp.Add(employee);
             _emp.Save();
