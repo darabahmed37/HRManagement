@@ -1,4 +1,6 @@
-﻿using HRManagementSystem.Database;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using HRManagementSystem.Database;
 using HRManagementSystem.Models;
 using HRManagementSystem.Repository;
 using HRManagementSystem.Repository.IRepository;
@@ -27,18 +29,16 @@ public class EmployeeController : Controller {
         return Ok(emp);
     }
 
-    [HttpPost]
-    [Route("Add")]
-    public IActionResult AddEmployee([FromBody] EmployeeModel? employee) {
-        if (employee != null) {
-            _emp.Add(employee);
-            _emp.Save();
-            return Ok("Employee Added Successfully");
-        }
-        return BadRequest();
+    [HttpPost("Add")]
+    public async Task<IActionResult> AddEmployee() {
+        var emp = await JsonSerializer.DeserializeAsync<EmployeeModel>(Request.Body);
+        if (emp == null) return BadRequest(Request.Body);
+        _emp.Add(emp);
+        _emp.Save();
+        return Ok(emp);
     }
 
-    [HttpPatch]
+    [HttpPatch("update")]
     public IActionResult UpdateEmployee(int id, EmployeeModel model) {
         var emp = _emp.GetFirstOrDefault(x => x.Code == id);
         if (emp == null) {

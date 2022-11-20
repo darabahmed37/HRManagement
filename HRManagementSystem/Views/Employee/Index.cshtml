@@ -308,9 +308,9 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    data:
-                        JSON.stringify(data)
-                    ,
+                data: JSON.stringify({
+                    employee: data
+                }),
                     success: function (result) {
                         if (result) {
                             alert("Employee Added Successfully");
@@ -332,7 +332,9 @@
             $.ajax({
                 url: `@Url.Action("UpdateEmployee")`,
                 type: "POST",
-                data: data,
+                data: {
+                    employee:data
+        },
                 success: function (result) {
                     if (result) {
                         alert("Employee Updated Successfully");
