@@ -140,8 +140,7 @@
         <hr/>
         <div class="px-5 pb-5" id="button-group">
             <button class="btn btn-primary" id="newEmp-btn">Add New</button>
-            <button class="btn btn-primary" id="updateEmp-btn">Update</button>
-            <button class="btn btn-primary" type="submit" id="deleteEmp-btn">Delete</button>
+
             <button class="btn btn-primary" id="viewEmp-btn">View</button>
         </div>
     </form>
@@ -163,8 +162,8 @@
 
         function setOption(name, data) {
             const value = $(`#add-employee select[name='${name}']`);
-            $(`#add-employee option[value='${data}']`).prop("selected", true)
-            debugger
+            $(`#add-employee option[value='${data}']`).prop("selected", true);
+            debugger;
             value.val(data).change();
         }
 
@@ -179,10 +178,10 @@
             setInput("Appointed By", response.appointedBy);
             setInput("Employee Name", response.name);
             setInput("Address", response.address);
-            setOption("Gender",response.gender)
-            setOption("Qualification", response.qualification)
-            setOption("Religion", response.religion)
-            setOption("Marital_Status", response.maritalStatus)
+            setOption("Gender", response.gender);
+            setOption("Qualification", response.qualification);
+            setOption("Religion", response.religion);
+            setOption("Marital_Status", response.maritalStatus);
 
         }
 
@@ -328,27 +327,28 @@
             delete selectOptions["Marital Status"];
             data = { ...data, ...selectOptions };
             e.preventDefault();
+            if (form.valid()) {
 
-            $.ajax({
-                url: `@Url.Action("AddEmployee")`,
-                type: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Accept': 'application/json',
-                },
-                data: JSON.stringify({
-                    data
-                }),
-                success: function(result) {
-                    if (result) {
-                        alert("Employee Added Successfully");
-                    } else {
-                        alert("Employee Addition Failed");
+                $.ajax({
+                    url: `@Url.Action("AddEmployee")`,
+                    type: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'Accept': 'application/json',
+                    },
+                    data: JSON.stringify({
+                        data
+                    }),
+                    success: function(result) {
+                        if (result) {
+                            alert("Employee Added Successfully");
+                        } else {
+                            alert("Employee Addition Failed");
+                        }
                     }
-                }
-            });
+                });
 
-
+            }
         }
 
 
@@ -377,7 +377,11 @@
         function getEmployeeById(e) {
             e.preventDefault();
             const id = $("#emp-code").val();
-
+            const update = $(`     <button class="btn btn-primary" style='margin-left:1em' id="updateEmp-btn">Update</button>`);
+            const deleteBtn = $(`<button class="btn btn-primary" type="submit" style='margin-left:1em' id="deleteEmp-btn">Delete</button>`);
+            $("#newEmp-btn").css("display", "none");
+            $("#viewEmp-btn").css("display", "none");
+            $("#button-group").append(deleteBtn, update);
             if (form.valid()) {
                 $.ajax({
                     url: `@Url.Action("GetEmployeeById")`,
