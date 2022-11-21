@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 using HRManagementSystem.Database;
 using HRManagementSystem.Models;
@@ -35,7 +36,7 @@ public class EmployeeController : Controller {
         try {
 
             var emp = await JsonSerializer.DeserializeAsync<EmployeeModel>(Request.Body);
-            if (emp.Name != "") {
+            if (emp != null && emp.Name != "") {
                 _emp.Add(emp);
                 _emp.Save();
             }
@@ -47,15 +48,33 @@ public class EmployeeController : Controller {
     }
 
     [HttpPatch("update")]
-    public IActionResult UpdateEmployee(int id, EmployeeModel model) {
-        var emp = _emp.GetFirstOrDefault(x => x.Code == id);
-        if (emp == null) {
-            ModelState.AddModelError("ID", "No Employee Exists with this ID");
-            return BadRequest(ModelState);
+    public async Task<IActionResult> UpdateEmployee() {
+
+        try {
+            var emp = await JsonSerializer.DeserializeAsync<EmployeeModel>(Request.Body);
+
+            _emp.Update(emp);
+            _emp.Save();
+        } catch (Exception e) {
+            return BadRequest();
         }
 
-        _emp.Update(model);
-        _emp.Save();
-        return Json(_emp.GetFirstOrDefault(x => x.Code == id));
+        return Ok();
+
+
     }
+
+    [HttpDelete]
+    public IActionResult DeleteEmployeeById([FromQuery] int id) {
+        var emp = _emp.GetFirstOrDefault(e => e.Code == id);
+        if (emp == null) return NotFound();
+        _emp.Remove(emp);
+        _emp.Save();
+        return Ok();
+    }
+
+
+
+
+
 }

@@ -158,20 +158,23 @@
         let viewBtn = $("#viewEmp-btn");
 
         function setInput(name, data) {
-            const value = $(`#add-employee input[name='${name}']`);
+            const value = $(`#add-employee input[name='${name}'] ,#add-employee textarea[name='${name}']`);
             value.val(data);
         }
 
         function setOption(name, data) {
             const value = $(`#add-employee select[name='${name}']`);
             $(`#add-employee option[value='${data}']`).prop("selected", true);
-            debugger;
             value.val(data).change();
         }
-
+        function setDate(name, data) {
+            const value = document.querySelector(`#add-employee input[name='${name}']`);
+            const date = new Date(data);
+            value.valueAsDate = date
+        }
         function populate(response) {
-            setInput("Join Date", response.joinDate);
-            setInput("DOB Date", response.dobDate);
+            setDate("Join Date", response.joinDate);
+            setDate("DOB Date", response.dobDate);
             setInput("Address", response.address);
             setInput("Mobile", response.mobile);
             setInput("Land Line", response.landline);
@@ -309,7 +312,7 @@
             let data = form.serializeJSON();
             const imageString = await toBase64(document.querySelector("#add-employee input[type=file]"))
             const selectOptions = returnSelectToJson();
-    
+
             data = {
                 Name: data["Employee Name"],
                 Code: data["Employee Code"],
@@ -321,19 +324,19 @@
                 Address: data["Address"],
                 DOB: data["DOB Date"],
                 JoinDate: data["Join Date"],
-                EmployeePicture:imageString,
+                EmployeePicture: imageString,
                 MaritalStatus: selectOptions["Marital Status"],
 
 
             };
-        
+
 
             delete selectOptions["Marital Status"];
             data = { ...data, ...selectOptions };
-            
+
             e.preventDefault();
             if (true) {
-        
+
                 $.ajax({
                     url: `@Url.Action("AddEmployee")`,
                     type: "POST",
@@ -382,11 +385,33 @@
 
         function getEmployeeById(e) {
             e.preventDefault();
+            $("#emp-code").prop("disabled", true);
             const id = $("#emp-code").val();
             const update = $(`     <button class="btn btn-primary" style='margin-left:1em' id="updateEmp-btn">Update</button>`);
             const deleteBtn = $(`<button class="btn btn-primary" type="submit" style='margin-left:1em' id="deleteEmp-btn">Delete</button>`);
             $("#newEmp-btn").css("display", "none");
             $("#viewEmp-btn").css("display", "none");
+
+            deleteBtn.click((e) => {
+                e.preventDefault()
+                $.ajax({
+                    url: `@Url.Action("DeleteEmployeeById")?id=${id}`,
+                    type: "Delete",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    success: function (response) {
+                        alert("Deleted");;
+
+                    },
+                    error: function (error) {
+                        form.validate().showErrors({
+                            "Employee Code": "Employee Code does not exist"
+                        });
+                    }
+
+                });
+            })
             $("#button-group").append(deleteBtn, update);
             if (form.valid()) {
                 $.ajax({
@@ -399,7 +424,9 @@
                         id
                     },
                     success: function (response) {
+
                         populate(response);
+                        toggleForm(false)
 
                     },
                     error: function (error) {
@@ -421,6 +448,9 @@
             const cancel = $(`<button class="btn btn-primary" style='margin-left:1em' id="cancelEmp">Cancel</button>`);
             const save = $(`<button class="btn btn-primary" id="saveEmp">Save</button>`);
             $("#button-group").append(save, cancel);
+            cancel.click(e => {
+                window.target;
+            })
             $("#saveEmp").click(addEmployeeSubmit);
 
 
