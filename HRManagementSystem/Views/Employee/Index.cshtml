@@ -167,11 +167,13 @@
             $(`#add-employee option[value='${data}']`).prop("selected", true);
             value.val(data).change();
         }
+
         function setDate(name, data) {
             const value = document.querySelector(`#add-employee input[name='${name}']`);
             const date = new Date(data);
             value.valueAsDate = date
         }
+
         function populate(response) {
             setDate("Join Date", response.joinDate);
             setDate("DOB Date", response.dobDate);
@@ -187,6 +189,12 @@
             setOption("Qualification", response.qualification);
             setOption("Religion", response.religion);
             setOption("Marital_Status", response.maritalStatus);
+            const image = $(`<img src="${response.employeePicture}"  style="width:10em"/>`)
+            $(".custom-file").append(image).css({
+    
+                "width":"100%",
+                "justify-content":"center",
+            });
 
         }
 
