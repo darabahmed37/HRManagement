@@ -11,7 +11,9 @@
             height: 100%
         }
 
-        .form-item { width: 20em; }
+        .form-item {
+            width: 20em;
+        }
 
         .employeeForm {
             flex-wrap: wrap;
@@ -28,26 +30,26 @@
         </h3>
         <div class="bg-white p-5 shadow p-3 mb-4 bg-white rounded mx-5">
             <h4>Employee Information</h4>
-            <hr/>
+            <hr />
             <div class="row mt-5 pl-4 employeeForm">
                 <div class="form-item">
                     @Html.Label("Employee Code")
-                    <input class="form-control" placeholder="Employee Code" name="Employee Code" id="emp-code"/>
+                    <input class="form-control" placeholder="Employee Code" name="Employee Code" id="emp-code" />
 
                 </div>
                 <div class="form-item">
                     @Html.Label("Employee Name")
-                    <input class="form-control" placeholder="Employee Name" name="Employee Name"/>
+                    <input class="form-control" placeholder="Employee Name" name="Employee Name" />
 
                 </div>
                 <div class="form-item">
                     @Html.Label("Appointed By")
-                    <input class="form-control" placeholder="Appointed By" name="Appointed By"/>
+                    <input class="form-control" placeholder="Appointed By" name="Appointed By" />
 
                 </div>
                 <div class="form-item">
                     @Html.Label("Join Date")
-                    <input class="form-control" name="Join Date" type="date"/>
+                    <input class="form-control" name="Join Date" type="date" />
 
                 </div>
                 <div class="form-item">
@@ -72,7 +74,7 @@
                 </div>
                 <div class="form-item">
                     @Html.Label("DOB Date")
-                    <input class="form-control" name="DOB Date" type="date"/>
+                    <input class="form-control" name="DOB Date" type="date" />
 
                 </div>
                 <div class="form-item">
@@ -99,33 +101,33 @@
 
                 <div class="form-item custom-file">
                     @Html.Label("Employee Picture")
-                    <input type="file"/>
+                    <input type="file" />
                 </div>
             </div>
 
         </div>
         <div class="bg-white p-5 shadow p-3 mb-2 bg-white rounded mx-5">
             <h4>Contact Information</h4>
-            <hr/>
+            <hr />
             <div class="row my-5 pl-4 employeeForm">
                 <div class="form-item">
                     @Html.Label("Country")
-                    <input class="form-control" placeholder="Country" name="Country"/>
+                    <input class="form-control" placeholder="Country" name="Country" />
 
                 </div>
                 <div class="form-item">
                     @Html.Label("City")
-                    <input class="form-control" placeholder="City" name="City"/>
+                    <input class="form-control" placeholder="City" name="City" />
 
                 </div>
                 <div class="form-item">
                     @Html.Label("Land Line")
-                    <input class="form-control" placeholder="Land Line" name="Land Line"/>
+                    <input class="form-control" placeholder="Land Line" name="Land Line" />
 
                 </div>
                 <div class="form-item">
                     @Html.Label("Mobile")
-                    <input class="form-control" type="tel" placeholder="Mobile" name="Mobile"/>
+                    <input class="form-control" type="tel" placeholder="Mobile" name="Mobile" />
 
                 </div>
 
@@ -137,7 +139,7 @@
 
             </div>
         </div>
-        <hr/>
+        <hr />
         <div class="px-5 pb-5" id="button-group">
             <button class="btn btn-primary" id="newEmp-btn">Add New</button>
 
@@ -303,10 +305,11 @@
             return output;
         }
 
-        function addEmployeeSubmit(e) {
+        async function addEmployeeSubmit(e) {
             let data = form.serializeJSON();
-
+            const imageString = await toBase64(document.querySelector("#add-employee input[type=file]"))
             const selectOptions = returnSelectToJson();
+    
             data = {
                 Name: data["Employee Name"],
                 Code: data["Employee Code"],
@@ -318,28 +321,31 @@
                 Address: data["Address"],
                 DOB: data["DOB Date"],
                 JoinDate: data["Join Date"],
-
+                EmployeePicture:imageString,
                 MaritalStatus: selectOptions["Marital Status"],
 
 
             };
+        
 
             delete selectOptions["Marital Status"];
             data = { ...data, ...selectOptions };
+            
             e.preventDefault();
-            if (form.valid()) {
-
+            if (true) {
+        
                 $.ajax({
                     url: `@Url.Action("AddEmployee")`,
                     type: "POST",
+
                     headers: {
                         "Content-Type": "application/json",
                         'Accept': 'application/json',
                     },
-                    data: JSON.stringify({
+                    data: JSON.stringify(
                         data
-                    }),
-                    success: function(result) {
+                    ),
+                    success: function (result) {
                         if (result) {
                             alert("Employee Added Successfully");
                         } else {
@@ -363,7 +369,7 @@
                 data: {
                     employee: data
                 },
-                success: function(result) {
+                success: function (result) {
                     if (result) {
                         alert("Employee Updated Successfully");
                     } else {
@@ -392,11 +398,11 @@
                     data: {
                         id
                     },
-                    success: function(response) {
+                    success: function (response) {
                         populate(response);
 
                     },
-                    error: function(error) {
+                    error: function (error) {
                         form.validate().showErrors({
                             "Employee Code": "Employee Code does not exist"
                         });
@@ -421,7 +427,7 @@
         }
 
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             validate();
             toggleForm(true);
             viewBtn.click(getEmployeeById);
@@ -430,6 +436,14 @@
 
         });
 
+        const toBase64 = file => new Promise((resolve, reject) => {
+            file = file.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
 
+
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
     </script>
 }

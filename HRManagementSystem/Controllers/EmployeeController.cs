@@ -35,7 +35,7 @@ public class EmployeeController : Controller {
         try {
 
             var emp = await JsonSerializer.DeserializeAsync<EmployeeModel>(Request.Body);
-            if (emp != null) {
+            if (emp.Name != "") {
                 _emp.Add(emp);
                 _emp.Save();
             }
