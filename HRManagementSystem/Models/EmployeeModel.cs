@@ -3,8 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HRManagementSystem.Models {
     public class EmployeeModel {
+
+        
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+
+
         public int Code { get; set; }
 
         public string Name { get; set; } = "";
@@ -21,5 +25,12 @@ namespace HRManagementSystem.Models {
         public string Address { get; set; } = "";
         public DateTime DobDate { get; set; } 
         public DateTime JoinDate { get; set; }
+
+
+
+
+
     }
+
+
 }

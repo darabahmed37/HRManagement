@@ -31,11 +31,19 @@ public class EmployeeController : Controller {
 
     [HttpPost("Add")]
     public async Task<IActionResult> AddEmployee() {
-        var emp = await JsonSerializer.DeserializeAsync<EmployeeModel>(Request.Body);
-        if (emp == null) return BadRequest(Request.Body);
-        _emp.Add(emp);
-        _emp.Save();
-        return Ok(emp);
+
+        try {
+
+            var emp = await JsonSerializer.DeserializeAsync<EmployeeModel>(Request.Body);
+            if (emp != null) {
+                _emp.Add(emp);
+                _emp.Save();
+            }
+        } catch (Exception e) {
+            return BadRequest();
+        }
+
+        return Ok("Employee Added");
     }
 
     [HttpPatch("update")]

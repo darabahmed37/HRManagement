@@ -11,9 +11,7 @@
             height: 100%
         }
 
-        .form-item {
-            width: 20em;
-        }
+        .form-item { width: 20em; }
 
         .employeeForm {
             flex-wrap: wrap;
@@ -23,134 +21,134 @@
 }
 
 
-    <div class="body-background">
-        <form id="add-employee" aria-disabled="True">
-            <h3 class="text-dark p-5">
-                Employee Page
-            </h3>
-            <div class="bg-white p-5 shadow p-3 mb-4 bg-white rounded mx-5">
-                <h4>Employee Information</h4>
-                <hr />
-                <div class="row mt-5 pl-4 employeeForm">
-                    <div class="form-item">
-                        @Html.Label("Employee Code")
-                        <input class="form-control" placeholder="Employee Code" name="Employee Code" id="emp-code" />
+<div class="body-background">
+    <form id="add-employee" aria-disabled="True">
+        <h3 class="text-dark p-5">
+            Employee Page
+        </h3>
+        <div class="bg-white p-5 shadow p-3 mb-4 bg-white rounded mx-5">
+            <h4>Employee Information</h4>
+            <hr/>
+            <div class="row mt-5 pl-4 employeeForm">
+                <div class="form-item">
+                    @Html.Label("Employee Code")
+                    <input class="form-control" placeholder="Employee Code" name="Employee Code" id="emp-code"/>
 
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("Employee Name")
-                        <input class="form-control" placeholder="Employee Name" name="Employee Name" />
+                </div>
+                <div class="form-item">
+                    @Html.Label("Employee Name")
+                    <input class="form-control" placeholder="Employee Name" name="Employee Name"/>
 
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("Appointed By")
-                        <input class="form-control" placeholder="Appointed By" name="Appointed By" />
+                </div>
+                <div class="form-item">
+                    @Html.Label("Appointed By")
+                    <input class="form-control" placeholder="Appointed By" name="Appointed By"/>
 
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("Join Date")
-                        <input class="form-control" name="Join Date" type="date" />
+                </div>
+                <div class="form-item">
+                    @Html.Label("Join Date")
+                    <input class="form-control" name="Join Date" type="date"/>
 
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("Qualification")
-                        <select class="form-control" name="Qualification">
-                            <option value="Graduation">Graduation</option>
-                            <option value="Intermediate">Intermediate</option>
-                            <option value="Matriculation">Matriculation</option>
+                </div>
+                <div class="form-item">
+                    @Html.Label("Qualification")
+                    <select class="form-control" name="Qualification">
+                        <option value="Graduation">Graduation</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Matriculation">Matriculation</option>
 
-                        </select>
+                    </select>
 
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("Gender")
-                        <select class="form-control" name="Gender">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Others">Others</option>
+                </div>
+                <div class="form-item">
+                    @Html.Label("Gender")
+                    <select class="form-control" name="Gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
 
-                        </select>
+                    </select>
 
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("DOB Date")
-                        <input class="form-control" name="DOB Date" type="date" />
+                </div>
+                <div class="form-item">
+                    @Html.Label("DOB Date")
+                    <input class="form-control" name="DOB Date" type="date"/>
 
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("Religion")
-                        <select class="form-control" name="Religion">
-                            <option value="Islam">Islam</option>
-                            <option value="Christianity">Christianity</option>
-                            <option value="Others">Others</option>
+                </div>
+                <div class="form-item">
+                    @Html.Label("Religion")
+                    <select class="form-control" name="Religion">
+                        <option value="Islam">Islam</option>
+                        <option value="Christianity">Christianity</option>
+                        <option value="Others">Others</option>
 
-                        </select>
+                    </select>
 
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("Marital Status")
-                        <select class="form-control" name="Marital Status">
-                            <option value="Single">Single</option>
-                            <option value="Married">Married</option>
-                            <option value="Windowed">Windowed</option>
-                            <option value="Separated">Separated</option>
+                </div>
+                <div class="form-item">
+                    @Html.Label("Marital Status")
+                    <select class="form-control" name="Marital Status">
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Windowed">Windowed</option>
+                        <option value="Separated">Separated</option>
 
-                        </select>
+                    </select>
 
-                    </div>
+                </div>
 
-                    <div class="form-item custom-file">
-                        @Html.Label("Employee Picture")
-                        <input type="file" />
-                    </div>
+                <div class="form-item custom-file">
+                    @Html.Label("Employee Picture")
+                    <input type="file"/>
+                </div>
+            </div>
+
+        </div>
+        <div class="bg-white p-5 shadow p-3 mb-2 bg-white rounded mx-5">
+            <h4>Contact Information</h4>
+            <hr/>
+            <div class="row my-5 pl-4 employeeForm">
+                <div class="form-item">
+                    @Html.Label("Country")
+                    <input class="form-control" placeholder="Country" name="Country"/>
+
+                </div>
+                <div class="form-item">
+                    @Html.Label("City")
+                    <input class="form-control" placeholder="City" name="City"/>
+
+                </div>
+                <div class="form-item">
+                    @Html.Label("Land Line")
+                    <input class="form-control" placeholder="Land Line" name="Land Line"/>
+
+                </div>
+                <div class="form-item">
+                    @Html.Label("Mobile")
+                    <input class="form-control" type="tel" placeholder="Mobile" name="Mobile"/>
+
+                </div>
+
+                <div class="form-item">
+                    @Html.Label("Address")
+                    <textarea class="form-control" rows="2" cols="6" placeholder="Address" name="Address"></textarea>
+
                 </div>
 
             </div>
-            <div class="bg-white p-5 shadow p-3 mb-2 bg-white rounded mx-5">
-                <h4>Contact Information</h4>
-                <hr />
-                <div class="row my-5 pl-4 employeeForm">
-                    <div class="form-item">
-                        @Html.Label("Country")
-                        <input class="form-control" placeholder="Country" name="Country" />
+        </div>
+        <hr/>
+        <div class="px-5 pb-5" id="button-group">
+            <button class="btn btn-primary" id="newEmp-btn">Add New</button>
+            <button class="btn btn-primary" id="updateEmp-btn">Update</button>
+            <button class="btn btn-primary" type="submit" id="deleteEmp-btn">Delete</button>
+            <button class="btn btn-primary" id="viewEmp-btn">View</button>
+        </div>
+    </form>
 
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("City")
-                        <input class="form-control" placeholder="City" name="City" />
+</div>
 
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("Land Line")
-                        <input class="form-control" placeholder="Land Line" name="Land Line" />
-
-                    </div>
-                    <div class="form-item">
-                        @Html.Label("Mobile")
-                        <input class="form-control" type="tel" placeholder="Mobile" name="Mobile" />
-
-                    </div>
-
-                    <div class="form-item">
-                        @Html.Label("Address")
-                        <textarea class="form-control" rows="2" cols="6" placeholder="Address" name="Address"></textarea>
-
-                    </div>
-
-                </div>
-            </div>
-            <hr />
-            <div class="px-5 pb-5" id="button-group">
-                <button class="btn btn-primary" id="newEmp-btn">Add New</button>
-                <button class="btn btn-primary" id="updateEmp-btn">Update</button>
-                <button class="btn btn-primary" type="submit" id="deleteEmp-btn">Delete</button>
-                <button class="btn btn-primary" id="viewEmp-btn">View</button>
-            </div>
-        </form>
-
-    </div>
-
-    @section Scripts{
+@section Scripts{
     <script>
         let form = $("#add-employee");
         let addBtn = $("#newEmp-btn");
@@ -158,6 +156,35 @@
         let deleteBtn = $("#deleteEmp-btn");
         let viewBtn = $("#viewEmp-btn");
 
+        function setInput(name, data) {
+            const value = $(`#add-employee input[name='${name}']`);
+            value.val(data);
+        }
+
+        function setOption(name, data) {
+            const value = $(`#add-employee select[name='${name}']`);
+            $(`#add-employee option[value='${data}']`).prop("selected", true)
+            debugger
+            value.val(data).change();
+        }
+
+        function populate(response) {
+            setInput("Join Date", response.joinDate);
+            setInput("DOB Date", response.dobDate);
+            setInput("Address", response.address);
+            setInput("Mobile", response.mobile);
+            setInput("Land Line", response.landline);
+            setInput("Country", response.country);
+            setInput("City", response.city);
+            setInput("Appointed By", response.appointedBy);
+            setInput("Employee Name", response.name);
+            setInput("Address", response.address);
+            setOption("Gender",response.gender)
+            setOption("Qualification", response.qualification)
+            setOption("Religion", response.religion)
+            setOption("Marital_Status", response.maritalStatus)
+
+        }
 
         function toggleForm(mode) {
             const input = form.find("input");
@@ -296,30 +323,31 @@
                 MaritalStatus: selectOptions["Marital Status"],
 
 
-            }
+            };
 
-            delete selectOptions["Marital Status"]
-            data = { ...data, ...selectOptions }
+            delete selectOptions["Marital Status"];
+            data = { ...data, ...selectOptions };
             e.preventDefault();
 
-                $.ajax({
-                    url: `@Url.Action("AddEmployee")`,
-                    type: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+            $.ajax({
+                url: `@Url.Action("AddEmployee")`,
+                type: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Accept': 'application/json',
+                },
                 data: JSON.stringify({
-                    employee: data
+                    data
                 }),
-                    success: function (result) {
-                        if (result) {
-                            alert("Employee Added Successfully");
-                        } else {
-                            alert("Employee Addition Failed");
-                        }
+                success: function(result) {
+                    if (result) {
+                        alert("Employee Added Successfully");
+                    } else {
+                        alert("Employee Addition Failed");
                     }
-                });
-            
+                }
+            });
+
 
         }
 
@@ -333,9 +361,9 @@
                 url: `@Url.Action("UpdateEmployee")`,
                 type: "POST",
                 data: {
-                    employee:data
-        },
-                success: function (result) {
+                    employee: data
+                },
+                success: function(result) {
                     if (result) {
                         alert("Employee Updated Successfully");
                     } else {
@@ -360,10 +388,11 @@
                     data: {
                         id
                     },
-                    success: function (response) {
-                        console.log(response);
+                    success: function(response) {
+                        populate(response);
+
                     },
-                    error: function (error) {
+                    error: function(error) {
                         form.validate().showErrors({
                             "Employee Code": "Employee Code does not exist"
                         });
@@ -388,12 +417,11 @@
         }
 
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             validate();
             toggleForm(true);
             viewBtn.click(getEmployeeById);
             addBtn.click(addEmployee);
-
 
 
         });
