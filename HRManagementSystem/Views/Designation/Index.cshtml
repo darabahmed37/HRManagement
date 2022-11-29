@@ -1,0 +1,65 @@
+﻿@section Style{
+    <style>
+
+
+        .designation-container {
+            background: #EDEEF1;
+            max-width: 30em;
+            max-height: 10em;
+            border-radius: 1em;
+            border-left: 5px solid var(--primary);
+            padding: 1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+        .designation {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+
+        }
+
+        .designation-item h6 {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+            margin-block: 0;
+        }
+
+        .designation-item p {
+            font-weight: 500;
+        }
+
+        .icons-designation {
+            display: flex;
+            gap: 1em;
+            font-size: 1.3rem;
+        }
+
+
+    </style>
+}
+
+<div class="designation-container">
+    <div class="designation">
+        <div class="designation-item">
+            <h6>
+                Department Code
+            </h6>
+            <p>1</p>
+        </div>
+        <div class="designation-item">
+            <h6>
+                Department Name
+            </h6>
+            <p>Library</p>
+        </div>
+    </div>
+    <div class="icons-designation">
+        <i class="fa-solid fa-pen-to-square" style="color: var(--primary)"></i>
+        <i class="fa-solid fa-folder-minus" style="color: var(--danger)"></i>
+    </div>
+</div>
