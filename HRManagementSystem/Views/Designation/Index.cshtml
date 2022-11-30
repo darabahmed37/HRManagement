@@ -71,8 +71,8 @@
             </div>
         </div>
         <div class="icons-designation">
-            <i class="fa-solid fa-pen-to-square" style="color: var(--primary)"></i>
-            <i class="fa-solid fa-folder-minus" style="color: var(--danger)"></i>
+                <i class="fa-solid fa-pen-to-square" id="edit-designation" data-toggle="modal" data-target="#exampleModal" style="color: var(--primary);cursor: pointer"></i>
+            <i class="fa-solid fa-folder-minus" style="color: var(--danger); cursor: pointer"></i>
         </div>
     </div>
 
@@ -90,7 +90,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add a new Department</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Department</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -114,6 +114,8 @@
 
         let form = $("#add_designation-new");
 
+
+
         form.validate({
             rules: {
                 "New Designation": {
@@ -128,7 +130,8 @@
                 }
             }
         });
-        designation.click(() => {
+        designation.click(function() {
+
             if (form.valid()) {
                 let data = {
                     DesignationName:
@@ -136,16 +139,16 @@
                 };
 
                 $.ajax({
-                    url: `@Url.Action("AddDesignation")/${designation.val()}`,
+                    url: `@Url.Action("AddDesignation")`,
                     type: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     data: JSON.stringify(data),
-                    success: function () {
+                    success: function() {
                         window.location.reload();;
                     },
-                    error: function () {
+                    error: function() {
                         alert("Error");
                     }
 
@@ -154,5 +157,32 @@
 
             }
         })
+        $("#edit-designation").click(function() {
+
+            if (form.valid()) {
+                let data = {
+                    DesignationName:
+                        $("#new_input_desi").val()
+                };
+
+                $.ajax({
+                    url: `@Url.Action("UpdateDesignation")`,
+                    type: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify(data),
+                    success: function() {
+                    //    window.location.reload();;
+                    },
+                    error: function() {
+                        alert("Error");
+                    }
+
+
+                });
+
+            }
+        });
     </script>
 }

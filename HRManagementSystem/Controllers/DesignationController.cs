@@ -33,6 +33,9 @@ namespace HRManagementSystem.Controllers {
 
         public async Task<IActionResult> UpdateDesignation() {
             var designation = await JsonSerializer.DeserializeAsync<DesignationModel>(Request.Body);
+            string name = designation.DesignationName;
+            designation = _designation.GetFirstOrDefault(e => e.ID == designation.ID);
+            designation.DesignationName = name;
             _designation.Update(designation!);
             _designation.Save();
             return Ok("Updated");
