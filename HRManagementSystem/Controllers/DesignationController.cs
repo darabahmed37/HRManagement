@@ -1,4 +1,5 @@
-﻿using HRManagementSystem.Database;
+﻿using System.Text.Json;
+using HRManagementSystem.Database;
 using HRManagementSystem.Models;
 using HRManagementSystem.Repository.IRepository;
 using HRManagementSystem.Repository;
@@ -13,18 +14,28 @@ namespace HRManagementSystem.Controllers {
             _designation = new Repository<DesignationModel>(db);
         }
         public IActionResult Index() {
-            return View();
+
+            return View(_designation.GetAll());
         }
 
         public IActionResult GetAllDesignation() {
             return Json(new { data = _designation.GetAll() });
             
         }
-
-        public IActionResult AddDesignation([FromBody]string name) {
-            _designation.Add(new DesignationModel { DesignationName = name });
+        [HttpPost]
+        public async Task<IActionResult> AddDesignation() {
+            var designation =  await JsonSerializer.DeserializeAsync<DesignationModel>(Request.Body);
+            _designation.Add(designation!);
             _designation.Save();
             return Ok("Designation Added Successfully");
+        }
+
+
+        public async Task<IActionResult> UpdateDesignation() {
+            var designation = await JsonSerializer.DeserializeAsync<DesignationModel>(Request.Body);
+            _designation.Update(designation!);
+            _designation.Save();
+            return Ok("Updated");
         }
     }
 

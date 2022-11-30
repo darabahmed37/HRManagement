@@ -1,5 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Create Employee";
+    var designation = ((ViewData["Designation"] as IEnumerable<DesignationModel>)!).ToList();
+    
 }
 @inject IHttpContextAccessor ContextAccessor
 
@@ -102,6 +104,21 @@
                 <div class="form-item custom-file">
                     @Html.Label("Employee Picture")
                     <input type="file" />
+                </div>
+                
+                <div class="form-item">
+                    @Html.Label("Designation")
+                    <select class="form-control" name="Designation" id="Designation">
+                        @foreach (var item in designation) {
+                            <option value="@item.ID">@item.DesignationName</option>
+                        }
+                        
+                        @if (designation.Count == 0) {
+                            <option value="0">No Designation</option>
+                        }
+
+                    </select>
+
                 </div>
             </div>
 
@@ -421,6 +438,9 @@
                 });
             })
             $("#button-group").append(deleteBtn, update);
+
+
+
             if (form.valid()) {
                 $.ajax({
                     url: `@Url.Action("GetEmployeeById")`,

@@ -12,14 +12,18 @@ namespace HRManagementSystem.Controllers;
 [Route("Dashboard")]
 public class EmployeeController : Controller {
     private readonly IRepository<EmployeeModel> _emp;
+    private readonly IRepository<DesignationModel> _designation;
 
 
     public EmployeeController(HRDBContext db) {
         _emp = new Repository<EmployeeModel>(db);
+        _designation = new Repository<DesignationModel>(db);
     }
 
     [Route("index")]
     public IActionResult Index() {
+        ViewData["Designation"] = _designation.GetAll();
+    
         return View();
     }
 
