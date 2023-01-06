@@ -20,8 +20,8 @@ public class EmployeeController : Controller {
         _designation = new Repository<DesignationModel>(db);
     }
 
-    [Route("index")]
-    public IActionResult Index() {
+    [Route("AddEmp")]
+    public IActionResult AddEmpView() {
         ViewData["Designation"] = _designation.GetAll();
     
         return View();
@@ -76,8 +76,10 @@ public class EmployeeController : Controller {
         _emp.Save();
         return Ok();
     }
-
-
+    [Route("index")]
+    public IActionResult ListingEmployee() {
+        return View("EmployeeListing",_emp.GetAll());
+    }
 
 
 

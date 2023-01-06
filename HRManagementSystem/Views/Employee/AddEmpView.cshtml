@@ -162,6 +162,7 @@
 
             <button class="btn btn-primary" id="viewEmp-btn">View</button>
         </div>
+    
     </form>
 
 </div>
@@ -358,10 +359,10 @@
 
             delete selectOptions["Marital Status"];
             data = { ...data, ...selectOptions };
-
+             
             e.preventDefault();
             if (true) {
-
+                
                 $.ajax({
                     url: `@Url.Action("AddEmployee")`,
                     type: "POST",
@@ -412,7 +413,7 @@
             e.preventDefault();
             $("#emp-code").prop("disabled", true);
             const id = $("#emp-code").val();
-            const update = $(`     <button class="btn btn-primary" style='margin-left:1em' id="updateEmp-btn">Update</button>`);
+            const update = $(`<button class="btn btn-primary" style='margin-left:1em' id="updateEmp-btn">Update</button>`);
             const deleteBtn = $(`<button class="btn btn-primary" type="submit" style='margin-left:1em' id="deleteEmp-btn">Delete</button>`);
             $("#newEmp-btn").css("display", "none");
             $("#viewEmp-btn").css("display", "none");
@@ -477,7 +478,7 @@
             const save = $(`<button class="btn btn-primary" id="saveEmp">Save</button>`);
             $("#button-group").append(save, cancel);
             cancel.click(e => {
-                window.target;
+                window.location.reload();
             })
             $("#saveEmp").click(addEmployeeSubmit);
 

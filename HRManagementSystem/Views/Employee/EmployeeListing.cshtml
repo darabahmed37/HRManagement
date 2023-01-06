@@ -1,0 +1,58 @@
+﻿@model IEnumerable<EmployeeModel> 
+
+<div>
+    <h1>
+        Employee Listing Page
+    </h1>
+
+    <div>
+        <h3>
+            Employee Information
+        </h3>
+        <table>
+            <tr>
+                <th>
+                    Employee Code
+                </th>
+                <th>Employee Name</th>
+                <th>Appointed By</th>
+                <th>Joining Date</th>
+                <th>Religion</th>
+                <th>Qualification</th>
+                <th>City</th>
+                <th>Action</th>
+
+            </tr>
+
+            @foreach (var emp in Model)
+            {
+                <td>
+                    @emp.Code
+                </td>
+                <td>
+                    @emp.Name
+                </td>
+                <td>
+                    @emp.AppointedBy
+                </td>
+                <td>
+                    @emp.JoinDate>
+                </td>
+                <td>
+                    @emp.Religion
+                </td>
+                <td>
+                    @emp.Qualification</td>
+                <td>
+                    @emp.City
+                </td>
+                <td>
+                    @emp.Address
+                </td>
+           
+            }
+
+        </table>
+    </div>
+
+</div>
