@@ -336,7 +336,8 @@
 
         async function addEmployeeSubmit(e) {
             let data = form.serializeJSON();
-            const imageString = await toBase64(document.querySelector("#add-employee input[type=file]"))
+            const imageString = "";
+            //await toBase64(document.querySelector("#add-employee input[type=file]"))
             const selectOptions = returnSelectToJson();
 
             data = {
@@ -496,6 +497,7 @@
         });
 
         const toBase64 = file => new Promise((resolve, reject) => {
+            debugger 
             file = file.files[0];
             const reader = new FileReader();
             reader.readAsDataURL(file);

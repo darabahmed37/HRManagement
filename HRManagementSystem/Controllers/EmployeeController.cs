@@ -76,7 +76,7 @@ public class EmployeeController : Controller {
         _emp.Save();
         return Ok();
     }
-    [Route("index")]
+    [Route("List")]
     public IActionResult ListingEmployee() {
         return View("EmployeeListing",_emp.GetAll());
     }

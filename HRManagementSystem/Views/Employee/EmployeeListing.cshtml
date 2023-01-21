@@ -1,5 +1,18 @@
 ﻿@model IEnumerable<EmployeeModel> 
 
+@section Style {
+    <style>
+        .view-action-listing {
+            display: flex;
+            gap: 1.2em;
+        }
+
+        .view-action-listing > *:hover { transform: scale(1.2) }
+
+
+    </style>
+}
+
 <div>
     <h1>
         Employee Listing Page
@@ -9,50 +22,87 @@
         <h3>
             Employee Information
         </h3>
-        <table>
+        <table class="table  table-striped">
+            <thead class="thead-dark">
             <tr>
                 <th>
                     Employee Code
                 </th>
-                <th>Employee Name</th>
-                <th>Appointed By</th>
-                <th>Joining Date</th>
-                <th>Religion</th>
-                <th>Qualification</th>
-                <th>City</th>
-                <th>Action</th>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Appointed By</th>
+                <th scope="col">Joining Date</th>
+                <th scope="col">Religion</th>
+                <th scope="col">Qualification</th>
+                <th scope="col">City</th>
+                <th scope="col">Action</th>
 
             </tr>
-
-            @foreach (var emp in Model)
-            {
-                <td>
-                    @emp.Code
-                </td>
-                <td>
-                    @emp.Name
-                </td>
-                <td>
-                    @emp.AppointedBy
-                </td>
-                <td>
-                    @emp.JoinDate>
-                </td>
-                <td>
-                    @emp.Religion
-                </td>
-                <td>
-                    @emp.Qualification</td>
-                <td>
-                    @emp.City
-                </td>
-                <td>
-                    @emp.Address
-                </td>
-           
+            </thead>
+            <tbody>
+            @foreach (var emp in Model) {
+                    <tr scope="row" row-id="@emp.Code">
+                    <td scope="col">
+                        @emp.Code
+                    </td>
+                    <td>
+                        @emp.Name
+                    </td>
+                    <td scope="col">
+                        @emp.AppointedBy
+                    </td>
+                    <td scope="col">
+                        @emp.JoinDate
+                    </td>
+                    <td scope="col">
+                        @emp.Religion
+                    </td>
+                    <td scope="col">
+                        @emp.Qualification
+                    </td>
+                    <td scope="col">
+                        @emp.City
+                    </td>
+                    <td scope="col">
+                        <div class="view-action-listing">
+                            <i class="fa-solid cursor-pointer fa-pen-to-square text-primary"></i>
+                            <i class="fa-solid   cursor-pointer fa-eye text-primary"></i>
+                            <i class="fa-solid  cursor-pointer fa-trash text-danger delete-emp-action" my-data=`@emp.Code`></i>
+                        </div>
+                    </td>
+                </tr>
             }
-
+            </tbody>
         </table>
     </div>
 
 </div>
+
+@section Scripts {
+    <script>
+        function deleteEmpById(id) {
+
+            console.log(id)
+            $.ajax({
+                url: `@Url.Action("DeleteEmployeeById")?id=${id}`,
+                type: "Delete",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                success: function(response) {
+                    alert("Deleted");;
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+
+            });
+        }
+
+        $(document).ready(function() {
+            $(".delete-emp-action").click(function() {
+                deleteEmpById($(this).attr("my-data"));
+            });
+        });
+    </script>
+}
