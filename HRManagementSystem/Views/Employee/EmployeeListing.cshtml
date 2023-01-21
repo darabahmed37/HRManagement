@@ -66,7 +66,7 @@
                         <div class="view-action-listing">
                             <i class="fa-solid cursor-pointer fa-pen-to-square text-primary"></i>
                             <i class="fa-solid   cursor-pointer fa-eye text-primary"></i>
-                            <i class="fa-solid  cursor-pointer fa-trash text-danger delete-emp-action" my-data=`@emp.Code`></i>
+                            <i class="fa-solid  cursor-pointer fa-trash text-danger delete-emp-action" my-data=@emp.Code></i>
                         </div>
                     </td>
                 </tr>
@@ -81,7 +81,7 @@
     <script>
         function deleteEmpById(id) {
 
-            console.log(id)
+
             $.ajax({
                 url: `@Url.Action("DeleteEmployeeById")?id=${id}`,
                 type: "Delete",
@@ -89,7 +89,7 @@
                     'Content-Type': 'application/json',
                 },
                 success: function(response) {
-                    alert("Deleted");;
+                    window.location.reload();
 
                 },
                 error: function(error) {
@@ -102,6 +102,7 @@
         $(document).ready(function() {
             $(".delete-emp-action").click(function() {
                 deleteEmpById($(this).attr("my-data"));
+
             });
         });
     </script>

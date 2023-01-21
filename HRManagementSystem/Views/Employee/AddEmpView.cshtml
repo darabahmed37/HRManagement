@@ -399,7 +399,7 @@
                 data: {
                     employee: data
                 },
-                success: function (result) {
+                success: function(result) {
                     if (result) {
                         alert("Employee Updated Successfully");
                     } else {
@@ -422,16 +422,16 @@
             deleteBtn.click((e) => {
                 e.preventDefault()
                 $.ajax({
-                    url: `@Url.Action("DeleteEmployeeById")?id=${id}`,
+                    url: `@Url.Action("DeleteEmployeeById","Employee")?id=${id}`,
                     type: "Delete",
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    success: function (response) {
+                    success: function(response) {
                         alert("Deleted");;
 
                     },
-                    error: function (error) {
+                    error: function(error) {
                         form.validate().showErrors({
                             "Employee Code": "Employee Code does not exist"
                         });
@@ -440,7 +440,6 @@
                 });
             })
             $("#button-group").append(deleteBtn, update);
-
 
 
             if (form.valid()) {

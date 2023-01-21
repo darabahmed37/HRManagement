@@ -68,7 +68,7 @@ public class EmployeeController : Controller {
 
     }
 
-    [HttpDelete]
+    [HttpDelete("delete")]
     public IActionResult DeleteEmployeeById([FromQuery] int id) {
         var emp = _emp.GetFirstOrDefault(e => e.Code == id);
         if (emp == null) return NotFound();
