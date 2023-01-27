@@ -1,5 +1,22 @@
-﻿@model IEnumerable<EmployeeModel> 
+﻿@using GridMvc
+@model IEnumerable<EmployeeModel> 
 
+<div class="row">
+    <div class="col-md-12">
+        @Html.Grid(Model).Named("Employees").Columns(c => {
+            c.Add(x => x.Code).Titled("Employee Code").Filterable(true).Sortable(true);
+            c.Add(x => x.Name).Titled("Employee Name").Filterable(true).Sortable(true);
+            c.Add(x => x.JoinDate).Titled("Joining Date").Sortable(true).Filterable(true);
+            c.Add(x => x.Qualification).Titled("Qualification").Sortable(true).Filterable(true);
+            c.Add(x => x.City).Titled("City").Sortable(true).Filterable(true);
+            c.Add(x => x.Religion).Titled("Religion").Sortable(true).Filterable(true);
+            c.Add(x => x.AppointedBy).Titled("Appointed By").Sortable(true).Filterable(true);
+        }).WithPaging(10)
+    </div>
+</div>
+
+
+@*
 @section Style {
     <style>
         .view-action-listing {
@@ -15,10 +32,7 @@
             flex-wrap: wrap
         }
 
-        #modal-form-view div{
-            width: 50%
-
-        }
+        #modal-form-view div { width: 50% }
 
         #modal-form-view div label {
             color: var(--dark);
@@ -155,18 +169,18 @@
                         'Content-Type': 'application/json',
                     },
                     success: function(response) {
-                      
 
-                        $("#modal-form-view").empty()
-                       for (let key of Object.keys(response)) {
-                           output += `    <div>
-                        <label>${key.charAt(0).toUpperCase()+key.slice(1)}</label>
+
+                        $("#modal-form-view").empty();
+                        for (let key of Object.keys(response)) {
+                            output += `<div>
+                        <label>${key.charAt(0).toUpperCase() + key.slice(1)}</label>
                         <p>${response[key]}</p>
                     </div>`;
-                       }
-                 
+                        }
 
-                        $("#modal-form-view").append($(output))
+
+                        $("#modal-form-view").append($(output));
 
 
                     },
@@ -179,3 +193,5 @@
         });
     </script>
 }
+
+*@
