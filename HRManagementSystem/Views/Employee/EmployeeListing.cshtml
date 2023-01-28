@@ -1,22 +1,5 @@
-﻿@using GridMvc
-@model IEnumerable<EmployeeModel> 
-
-<div class="row">
-    <div class="col-md-12">
-        @Html.Grid(Model).Named("Employees").Columns(c => {
-            c.Add(x => x.Code).Titled("Employee Code").Filterable(true).Sortable(true);
-            c.Add(x => x.Name).Titled("Employee Name").Filterable(true).Sortable(true);
-            c.Add(x => x.JoinDate).Titled("Joining Date").Sortable(true).Filterable(true);
-            c.Add(x => x.Qualification).Titled("Qualification").Sortable(true).Filterable(true);
-            c.Add(x => x.City).Titled("City").Sortable(true).Filterable(true);
-            c.Add(x => x.Religion).Titled("Religion").Sortable(true).Filterable(true);
-            c.Add(x => x.AppointedBy).Titled("Appointed By").Sortable(true).Filterable(true);
-        }).WithPaging(10)
-    </div>
-</div>
-
-
-@*
+﻿@model PagedList.IPagedList<EmployeeModel>;
+@using PagedList.Mvc;
 @section Style {
     <style>
         .view-action-listing {
@@ -105,7 +88,14 @@
     </div>
 
 </div>
-
+<div id="container" style="margin-left: 20px">
+    <p></p>
+    <p></p>
+    <div class="pagination" style="margin-left: 400px">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("ListingEmployee", new { page }))
+    </div>
+</div>
 
 <!-- Button trigger modal -->
 
@@ -192,6 +182,7 @@
             });
         });
     </script>
-}
+    <link href="~/lib/PagedList.js/PagedList.css" rel="stylesheet"/>
+    <script src="~/lib/PagedList.js/PagedList.js"></script>
 
-*@
+}

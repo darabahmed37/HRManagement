@@ -6,6 +6,8 @@ using HRManagementSystem.Models;
 using HRManagementSystem.Repository;
 using HRManagementSystem.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using PagedList;
+
 
 namespace HRManagementSystem.Controllers;
 
@@ -77,8 +79,12 @@ public class EmployeeController : Controller {
         return Ok();
     }
     [Route("List")]
-    public IActionResult ListingEmployee() {
-        return View("EmployeeListing",_emp.GetAll());
+    public IActionResult ListingEmployee(int?page) {
+        int pageSize = 10;
+        int pageIndex = 1;
+        pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+        return View("EmployeeListing", _emp.GetAll().ToPagedList(pageIndex, pageSize));
     }
 
 
