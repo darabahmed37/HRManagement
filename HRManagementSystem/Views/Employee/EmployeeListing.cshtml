@@ -1,5 +1,6 @@
-﻿@model PagedList.IPagedList<EmployeeModel>;
-@using PagedList.Mvc;
+﻿@model X.PagedList.IPagedList<EmployeeModel>;
+@using X.PagedList.Mvc.Core;
+
 @section Style {
     <style>
         .view-action-listing {
@@ -20,6 +21,9 @@
         #modal-form-view div label {
             color: var(--dark);
             font-size: 1rem;
+        }
+        .pagination ul {
+            gap: 1em;
         }
 
     </style>
@@ -89,11 +93,11 @@
 
 </div>
 <div id="container" style="margin-left: 20px">
-    <p></p>
-    <p></p>
+ 
     <div class="pagination" style="margin-left: 400px">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("ListingEmployee", new { page }))
+     
+        <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)</div>
+        <div>of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("ListingEmployee", new { page }))</div>
     </div>
 </div>
 

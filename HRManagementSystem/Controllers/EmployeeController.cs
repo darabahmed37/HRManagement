@@ -6,7 +6,7 @@ using HRManagementSystem.Models;
 using HRManagementSystem.Repository;
 using HRManagementSystem.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using PagedList;
+using X.PagedList;
 
 
 namespace HRManagementSystem.Controllers;
